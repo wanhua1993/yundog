@@ -1,6 +1,7 @@
 <template>
     <section class='aui-content'>
         <w-header></w-header>
+        <router-view class='wh_content'></router-view> 
         <w-footer></w-footer>
     </section>
 </template>
@@ -20,5 +21,7 @@ export default {
 }
 </script>
 <style scoped>
-
+.wh_content {
+    margin-top: 2.2rem;
+}
 </style>
