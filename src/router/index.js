@@ -5,6 +5,7 @@ import First from '@/views/first'
 import Friends from '@/views/friends'
 import Chat_room from '@/views/chat_room'
 import My from '@/views/my'
+import Goods_car from '@/views/goods_car'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +39,12 @@ export default new Router({
           path: '/my',
           name: 'my',
           component: My
+        },
+        // 跳转到发表文章页面
+        {
+          path: '/goods_car',
+          name: 'goods_car',
+          component: Goods_car
         }
       ]
     },

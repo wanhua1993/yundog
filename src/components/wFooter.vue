@@ -23,8 +23,8 @@
                         path: "/friends"
                     },
                     {
-                        val: "购物车",
-                        icon: "aui-icon-cart",
+                        val: "发表",
+                        icon: "aui-icon-pencil",
                         active: "",
                         path: "/goods_car"
                     },
