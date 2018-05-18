@@ -23,5 +23,6 @@ export default {
 <style scoped>
 .wh_content {
     margin-top: 2.2rem;
+    margin-bottom: 2.3rem;
 }
 </style>

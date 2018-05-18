@@ -1,8 +1,24 @@
 <template>
     <div class='wh_tab'>
-        <div class="aui-tab" id="tab">
+        <div class="aui-tab" id="tab" v-if='tab_status==0'>
             <div v-for='(item, index) in tab_list' class='aui-tab-item' :class='[item.active]' @click='change_tab(index)' :key='index'>{{item.val}}</div>
         </div>
+        <header class="aui-bar aui-bar-nav" v-if='tab_status==1'>
+            <a class="aui-pull-left aui-btn aui-btn-outlined">
+                <span class="aui-iconfont aui-icon-menu"></span>
+            </a>
+            <div class="aui-title">最近联系人</div>
+            <a class="aui-pull-right aui-btn aui-btn-outlined">
+                <span class="aui-iconfont aui-icon-search"></span>
+            </a>
+        </header>
+        <header class="aui-bar aui-bar-nav" v-if='tab_status==5'>
+            <a class="aui-pull-left aui-btn" @click='back()'>
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">聊天内容</div>
+        </header>
+        <header class="aui-bar aui-bar-nav aui-bar-light" v-if='tab_status == 3'>个人中心</header>
     </div>
 </template>
 
@@ -27,14 +43,39 @@
                         active: ''
                     }
                 ],
+                tab_status: 0
             };
         },
-        mounted() {},
+        mounted() {
+        },
         methods: {
             change_tab(index) {
                 for (var i = 0; i < this.tab_list.length; i++) {
                     this.tab_list[i].active = '';
                     this.tab_list[index].active = 'aui-active';
+                }
+            },
+            // 点击返回
+            back() {
+                this.$router.push('/friends');
+            }
+        },
+        watch: {
+            $route: function(to, from) {
+                if (to.path == '/friends') {
+                    this.tab_status = 1;
+                }
+                else if (to.path == '/index') {
+                    this.tab_status = 0;
+                }
+                else if(to.path == '/chat_room') {
+                    this.tab_status = 5;
+                }
+                else if(to.path == '/my') {
+                    this.tab_status = 3;
+                }
+                else {
+                    this.tab_status = -1;
                 }
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <section class='aui-content'>
-     <div class="aui-card-list" v-for='(item, index) in data_list'>
+     <div class="aui-card-list" v-for='(item, index) in data_list' :key='index'>
         <div class="aui-card-list-header aui-card-list-user aui-border-b">
             <div class="aui-card-list-user-avatar">
                 <!-- <img src="../../image/demo4.png" class="aui-img-round" /> -->
@@ -20,7 +20,6 @@
             <div><i class="aui-iconfont aui-icon-star"></i> 888</div>
         </div>
     </div>
-    
     </section>
 </template>
 <script>
@@ -42,6 +41,9 @@ export default {
                 }
             ]
         }
+    },
+    created() {
+        localStorage.tab_status = 0;
     }
 }
 </script>
