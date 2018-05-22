@@ -6,6 +6,7 @@ import Friends from '@/views/friends'
 import Chat_room from '@/views/chat_room'
 import My from '@/views/my'
 import Goods_car from '@/views/goods_car'
+import Login from '@/views/login'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,12 @@ export default new Router({
           path: '/goods_car',
           name: 'goods_car',
           component: Goods_car
+        },
+        // 跳转到登录页面
+        {
+          path: '/login',
+          name: 'login',
+          component: Login
         }
       ]
     },

@@ -7,6 +7,7 @@
     </footer>
 </template>
 <script>
+    import mUtils from "../utils/utils";
     export default {
         data() {
             return {
@@ -32,7 +33,7 @@
                         val: "我的",
                         icon: "aui-icon-my",
                         active: "",
-                        path: "my"
+                        path: "/my"
                     }
                 ]
             };
@@ -44,8 +45,25 @@
                     this.tab_list[i].active = "";
                     this.tab_list[index].active = "aui-active";
                 }
-                this.$router.push(this.tab_list[index].path);
-                localStorage.tab_status = index;
+                if (this.tab_list[index].path == "/my") {
+                    var username = mUtils.getStore("username");
+                    if (username) {
+                        this.$router.push(this.tab_list[index].path);
+                    } else {
+                        this.$router.push("/login");
+                    }
+                } else {
+                    this.$router.push(this.tab_list[index].path);
+                }
+            }
+        },
+        watch: {
+            $route: function (to, from){
+                for (var i = 0; i < this.tab_list.length; i++) {
+                    this.tab_list[i].active = "";
+                    if(to.path == this.tab_list[i].path)
+                    this.tab_list[i].active = "aui-active";
+                }
             }
         }
     };

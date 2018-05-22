@@ -18,7 +18,12 @@
             </a>
             <div class="aui-title">聊天内容</div>
         </header>
-        <header class="aui-bar aui-bar-nav aui-bar-light" v-if='tab_status == 3'>个人中心</header>
+        <header class="aui-bar aui-bar-nav aui-bar-light" v-if='tab_status == 3'>
+            个人中心
+        </header>
+        <header class="aui-bar aui-bar-nav" v-if='tab_status == 4'>
+            用户登录
+        </header>
     </div>
 </template>
 
@@ -73,6 +78,9 @@
                 }
                 else if(to.path == '/my') {
                     this.tab_status = 3;
+                }
+                else if(to.path == '/login') {
+                    this.tab_status = 4;
                 }
                 else {
                     this.tab_status = -1;

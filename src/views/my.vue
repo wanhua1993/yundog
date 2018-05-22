@@ -24,9 +24,11 @@
                 </div>
             </li>
         </ul>
+        <div class="aui-btn aui-btn-danger aui-btn-block wh_confirm" @click='login_out'>退出登录</div>
     </div>
 </template>
 <script>
+    import mUtils from '@/utils/utils' 
     export default {
         data() {
             return {
@@ -42,10 +44,16 @@
 
         },
         methods: {
-
+            // 退出登录
+            login_out() {
+                mUtils.setStore('username', '');
+                this.$router.push('/');
+            }
         }
     }
 </script>
 <style scoped>
-
+.wh_confirm {
+    margin-top: 2rem;
+}
 </style>
