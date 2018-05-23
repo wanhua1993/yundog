@@ -43,10 +43,17 @@ export default {
     },
     methods: {
         // 确认登录
-        login_in() {
+        async login_in() {
             if(this.username && this.password) {
-                mUtils.setStore('username', this.username);
-                this.$router.push('/my');
+                const data = {
+                    username: this.username,
+                    password: this.password
+                }
+                const res = await this.$store.dispatch('login_in', data);
+                if(res.status == 'success' && res.data.value.length > 0) {
+                    mUtils.setStore('user', res.data.value[0]);
+                    this.$router.push('/my');
+                }
             } else {
                 alert('请输入正确的用户名密码！');
             }
@@ -56,6 +63,7 @@ export default {
 </script>
 <style scoped>
 .wh_login {
+    margin-top: 2.2rem;
     padding: 0.5rem;
 }
 .wh_ul li {

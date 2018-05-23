@@ -7,6 +7,7 @@ import Chat_room from '@/views/chat_room'
 import My from '@/views/my'
 import Goods_car from '@/views/goods_car'
 import Login from '@/views/login'
+import My_detail from '@/views/my_detail'
 Vue.use(Router)
 
 export default new Router({
@@ -52,6 +53,12 @@ export default new Router({
           path: '/login',
           name: 'login',
           component: Login
+        },
+        // 跳转到 个人信息详情页面
+        {
+          path: 'my_detail',
+          name: 'my_detail',
+          component: My_detail
         }
       ]
     },

@@ -81,6 +81,8 @@
     }
 </script>
 <style scoped>
-
+.aui-chat {
+    margin-top: 2.2rem;
+}
 </style>
 

@@ -48,5 +48,7 @@ export default {
 }
 </script>
 <style scoped>
-
+.aui-content {
+    margin-top: 2.2rem;
+}
 </style>

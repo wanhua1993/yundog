@@ -1,4 +1,4 @@
-
+import url from '../server/index'
 const types = {
     // 这里是定义组件的方法 名
     MENU_EXTENSION: 'MENU_EXTENSION',
@@ -25,9 +25,18 @@ const mutations = {
 
 const actions = {
     // 这里一般是定义 异步 改变组件的方法 一般是用dispatch 的方法来提交调用的 (可以是ajax请求数据)
-    addMenu: ({ commit }, menuItems) => {
-        if (menuItems.length > 0) {
-            commit(types.ADD_MENU, menuItems)
+    async login_in({ commit }, data) {
+        const res = await url.loginUser(data)
+        console.log(res);
+        if (res.status == 200) {
+            return {
+                status: 'success',
+                data: res.data
+            }
+        }
+        return {
+            status: 'fail',
+            data: res.data.data
         }
     },
 }

@@ -45,16 +45,7 @@
                     this.tab_list[i].active = "";
                     this.tab_list[index].active = "aui-active";
                 }
-                if (this.tab_list[index].path == "/my") {
-                    var username = mUtils.getStore("username");
-                    if (username) {
-                        this.$router.push(this.tab_list[index].path);
-                    } else {
-                        this.$router.push("/login");
-                    }
-                } else {
-                    this.$router.push(this.tab_list[index].path);
-                }
+                this.$router.push(this.tab_list[index].path);
             }
         },
         watch: {

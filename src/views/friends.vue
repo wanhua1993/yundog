@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="wh_section">
         <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" 
         v-for='(item, index) in data_list' 
         @click='chat_room()'
@@ -83,6 +83,9 @@
 <style scoped>
 .wh-mes {
     border-bottom: 1px solid #ddd;
+}
+.wh_section {
+    margin-top: 2.2rem;
 }
 </style>
 
