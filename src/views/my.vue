@@ -78,6 +78,7 @@
         },
         mounted() {
             this.user.name = mUtils.getStore("user").username;
+            this.user.avatar = 'http://192.168.0.14:3000' + mUtils.getStore("user").avatar;
         },
         methods: {
             // 退出登录

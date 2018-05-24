@@ -8,7 +8,7 @@
                 <span class="aui-iconfont aui-icon-menu"></span>
             </a>
             <div class="aui-title">最近联系人</div>
-            <a class="aui-pull-right aui-btn aui-btn-outlined">
+            <a class="aui-pull-right aui-btn aui-btn-outlined wh_search_friends" @click='search_friends()'>
                 <span class="aui-iconfont aui-icon-search"></span>
             </a>
         </header>
@@ -24,6 +24,9 @@
         <header class="aui-bar aui-bar-nav" v-if='tab_status == 4'>
             用户登录
         </header>
+        <header class="aui-bar aui-bar-nav" v-if='tab_status == 6'>
+            好友添加
+        </header>
     </div>
 </template>
 
@@ -33,19 +36,23 @@
             return {
                 tab_list: [{
                         val: '最新',
-                        active: 'aui-active'
+                        active: 'aui-active',
+                        path: '/new'
                     },
                     {
                         val: '推荐',
-                        active: ''
+                        active: '',
+                        path: '/recommend'
                     },
                     {
                         val: '分享',
-                        active: ''
+                        active: '',
+                        path: '/share'
                     },
                     {
                         val: '社区',
-                        active: ''
+                        active: '',
+                        path: '/community'
                     }
                 ],
                 tab_status: 0
@@ -59,10 +66,15 @@
                     this.tab_list[i].active = '';
                     this.tab_list[index].active = 'aui-active';
                 }
+                this.$router.push(this.tab_list[index].path);
             },
             // 点击返回
             back() {
                 this.$router.push('/friends');
+            },
+            // 跳转到 搜索好友页面
+            search_friends() {
+                this.$router.push('/search_friends');
             }
         },
         watch: {
@@ -70,7 +82,7 @@
                 if (to.path == '/friends') {
                     this.tab_status = 1;
                 }
-                else if (to.path == '/index') {
+                else if (to.path == '/index' || to.path == '/new' || to.path == '/community' || to.path == '/share' || to.path == '/recommend') {
                     this.tab_status = 0;
                 }
                 else if(to.path == '/chat_room') {
@@ -81,6 +93,9 @@
                 }
                 else if(to.path == '/login') {
                     this.tab_status = 4;
+                }
+                else if(to.path == '/search_friends') {
+                    this.tab_status = 6;
                 }
                 else {
                     this.tab_status = -1;

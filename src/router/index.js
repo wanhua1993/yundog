@@ -8,6 +8,11 @@ import My from '@/views/my'
 import Goods_car from '@/views/goods_car'
 import Login from '@/views/login'
 import My_detail from '@/views/my_detail'
+import New from '@/views/new'
+import Community from '@/views/community'
+import Recommend from '@/views/recommend'
+import Share from '@/views/share'
+import Search_friends from '@/views/Search_friends'
 Vue.use(Router)
 
 export default new Router({
@@ -59,6 +64,35 @@ export default new Router({
           path: 'my_detail',
           name: 'my_detail',
           component: My_detail
+        },
+        // 跳转到社区页面
+        {
+          path: '/community',
+          name: 'community',
+          component: Community
+        },
+        // 跳转到推荐页面
+        {
+          path: 'recommend',
+          name: 'recommend',
+          component: Recommend
+        },
+        // 跳转到分享页面
+        {
+          path: 'share',
+          name: 'share',
+          component: Share
+        },
+        // 跳转到 最新页面
+        {
+          path: 'new',
+          name: 'new',
+          component: New
+        },
+        {
+          path: 'search_friends',
+          name: 'search_friends',
+          component: Search_friends
         }
       ]
     },

@@ -33,6 +33,23 @@ var UserSchema = new Schema({
     }
 });
 var User = mongoose.model('User', UserSchema);
+// 好友列表
+var FriendsSchema = new Schema({
+    createT: {
+        type: String,
+        default: new Date()
+    },
+    my_id: {
+        type: ObjectId,
+        ref: 'user'
+    },
+    friend_id: {
+        type: ObjectId,
+        ref: 'user'
+    }
+});
+var Friends = mongoose.model("Friend", FriendsSchema);
 module.exports = {
-    User: User
+    User: User,
+    Friends: Friends
 }

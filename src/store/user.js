@@ -39,6 +39,20 @@ const actions = {
             data: res.data.data
         }
     },
+    // 上传头像
+    async upload_file({ commit }, data) {
+        const res = await url.upload_file(data);
+        if(res.status == 200) {
+            return {
+                status: 'success',
+                data: res.data
+            }
+        }
+        return {
+            status: 'fail',
+            data: res.data
+        }
+    },
 }
 
 export default {

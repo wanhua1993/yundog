@@ -37,7 +37,10 @@
             <li class="aui-list-item avatar_li">
                 <div class="aui-list-item-inner">
                     <div class="aui-list-item-title">头像</div>
-                    <div class="aui-list-item-right"></div>
+                    <div class="aui-list-item-right wh_avatar_box">
+                        <img :src="user.avatar ? user.avatar : avatar" alt="" class="wh_avatar">
+                        <input type="file" class="wh_uploadAvatar" @change='upload_photo()' id="file">
+                    </div>
                 </div>
             </li>
             <li class="aui-list-item">
@@ -67,17 +70,29 @@
     export default {
         data() {
             return {
-                user: {}
+                user: {},
+                avatar: require('@/assets/timg.jpg')
             }
         },
         mounted() {
             this.user = mUtils.getStore('user');
             this.user.createT = mUtils.formatDate(new Date(this.user.createT));
+            this.user.avatar = 'http://192.168.0.14:3000' + this.user.avatar;
         },
         methods: {
             // 保存修改
             save_data() {
                 console.log(111);
+            },
+            // 上传头像
+            async upload_photo() {
+                var file = document.getElementById('file').files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('id', this.user._id);
+                var res = await this.$store.dispatch('upload_file', formData);
+                console.log(res);
+                this.avatar = 'http://192.168.0.14:3000' + res.data.value;
             }
         }
     }
@@ -102,5 +117,23 @@
     .avatar_li {
         margin-top: .6rem;
     }
-
+    .wh_avatar {
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        margin: 2px;
+    }
+    .wh_avatar_box {
+        position: relative;
+    }
+    .wh_uploadAvatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 1000;
+    }
 </style>
