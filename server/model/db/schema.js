@@ -43,7 +43,7 @@ var FriendsSchema = new Schema({
         type: ObjectId,
         ref: 'user'
     },
-    friend_id: {
+    fri_id: {
         type: ObjectId,
         ref: 'user'
     }

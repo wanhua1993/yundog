@@ -13,7 +13,9 @@ const service = {
     // 加载 社区 数据 通过后台爬虫来获取数据
     cheerio_data: data => Axios.get('/cheerio_data?count=' + data),
     // 搜索添加好友
-    search_friends: data => Axios.get('/search_friends?val=' + data)
+    search_friends: data => Axios.get('/search_friends?val=' + data),
+    // 加他好友
+    add_friend: data => Axios.get('/add_friend?fri_id=' + data.fri_id + '&my_id=' + data.my_id)
 
 }
 export default service

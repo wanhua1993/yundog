@@ -1,4 +1,5 @@
 var User = require('../db/schema').User;
+var Friends = require('../db/schema').Friends;
 var upload_file = require('../formdata/upload_file');
 var cheerio_f = require('../cheerio/cheerio');
 
@@ -57,15 +58,25 @@ const User_all = {
     },
     // 搜素添加好友
     search_friends(req, res, callback) {
-        var val = req.query;
+        var val = req.query.val;
         const reg = new RegExp(val, 'i') //不区分大小写
         var wherestr = {
             $or: [ //多条件，数组
-                { username: { $regex: reg } },
-                { _id: { $regex: reg } }
+                { username: reg },
             ]
         }
         User.find(wherestr, function (err, res) {
+            callback(err, res);
+        });
+    },
+    // 加他好友
+    add_friend(req, res, callback) {
+        var val = req.query;
+        var friends = new Friends({
+            my_id: val.my_id,
+            fri_id: val.fri_id
+        });
+        friends.save(function (err, res) {
             callback(err, res);
         });
     }

@@ -50,4 +50,16 @@ router.get('/search_friends', function (req, res) {
     }
   });
 });
+// 加他好友
+router.get('/add_friend', function (req, res){
+  User_all.add_friend(req, res, function (err, ret) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.send({
+        value: ret
+      });
+    }
+  });
+});
 module.exports = router;

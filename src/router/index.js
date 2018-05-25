@@ -13,6 +13,7 @@ import Community from '@/views/community'
 import Recommend from '@/views/recommend'
 import Share from '@/views/share'
 import Search_friends from '@/views/Search_friends'
+import Friends_detail from '@/views/friends_detail'
 Vue.use(Router)
 
 export default new Router({
@@ -89,10 +90,17 @@ export default new Router({
           name: 'new',
           component: New
         },
+        // 跳轉到 搜索好友頁面
         {
           path: 'search_friends',
           name: 'search_friends',
           component: Search_friends
+        },
+        // 跳轉到 好友詳情頁面
+        {
+          path: 'friends_detail',
+          name: 'friends_detail',
+          component: Friends_detail
         }
       ]
     },
