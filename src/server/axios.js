@@ -1,10 +1,9 @@
 // 对 axios 进行配置
 import axios from 'axios'
-
+import baseURL from './url'
 // axios.defaults.baseURL = 'http://localhost:3000';
 // axios.defaults.timeout = 30000;
 // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
-const baseURL = 'http://192.168.0.14:3000'
 
 const instance = axios.create()
 instance.defaults.timeout = 30000 // 所有接口30s超时

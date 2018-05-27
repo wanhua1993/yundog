@@ -67,6 +67,7 @@
 <script>
 
     import mUtils from '@/utils/utils'
+    import baseURL from '@/server/url'
     export default {
         data() {
             return {
@@ -77,7 +78,9 @@
         mounted() {
             this.user = mUtils.getStore('user');
             this.user.createT = mUtils.formatDate(new Date(this.user.createT));
-            this.user.avatar = 'http://192.168.0.14:3000' + this.user.avatar;
+            if(this.user.avatar) {
+                this.user.avatar = baseURL + this.user.avatar;
+            } 
         },
         methods: {
             // 保存修改
@@ -92,7 +95,7 @@
                 formData.append('id', this.user._id);
                 var res = await this.$store.dispatch('upload_file', formData);
                 console.log(res);
-                this.avatar = 'http://192.168.0.14:3000' + res.data.value;
+                this.avatar = baseURL + res.data.value;
             }
         }
     }

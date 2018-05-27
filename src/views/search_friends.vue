@@ -23,6 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 <script>
     import url from '../server/index'
+    import baseURL from '@/server/url'
     export default {
         data() {
             return {
@@ -39,7 +40,7 @@
                     for (var i = 0; i < that.data_list.length; i++) {
                         var avatar = that.data_list[i].avatar;
                         if (avatar) {
-                            that.data_list[i].avatar = 'http://192.168.0.14:3000' + avatar;
+                            that.data_list[i].avatar = baseURL + avatar;
                         } else {
                             that.data_list[i].avatar = require('@/assets/timg.jpg');
                         }

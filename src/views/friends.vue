@@ -5,7 +5,8 @@
         @click='chat_room()'
         :key='index'>
             <div class="aui-info-item">
-                <img :src="item.img" style="width:1.5rem" class="aui-img-round" /><span class="aui-margin-l-5">{{item.val}}</span>
+                <img :src="item.img" style="width:1.5rem" class="aui-img-round" />
+                <span class="aui-margin-l-5">{{item.val}}</span>
             </div>
             <div class="aui-info-item">{{item.time}}</div>
         </div>

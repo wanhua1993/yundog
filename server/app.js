@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-
+var Url = require('./config/datebase').Url;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -25,7 +25,7 @@ app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", "http://192.168.0.14:8080");//配置客户端
+  res.header("Access-Control-Allow-Origin", Url);//配置客户端
   if (req.method == 'OPTIONS') {
     /*让options请求快速返回*/
     res.send(200);
