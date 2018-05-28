@@ -62,4 +62,16 @@ router.get('/add_friend', function (req, res){
     }
   });
 });
+// 加载好友请求列表
+router.get('/load_friends_req', function (req, res) {
+  User_all.load_friends_req(req, res, function (err, ret){
+    if(err) {
+      console.log(err);
+    } else {
+      res.send({
+        value: ret
+      });
+    }
+  });
+});
 module.exports = router;

@@ -3,15 +3,7 @@
         <div class="aui-tab" id="tab" v-if='tab_status==0'>
             <div v-for='(item, index) in tab_list' class='aui-tab-item' :class='[item.active]' @click='change_tab(index)' :key='index'>{{item.val}}</div>
         </div>
-        <header class="aui-bar aui-bar-nav" v-if='tab_status==1'>
-            <a class="aui-pull-left aui-btn aui-btn-outlined">
-                <span class="aui-iconfont aui-icon-menu"></span>
-            </a>
-            <div class="aui-title">最近联系人</div>
-            <a class="aui-pull-right aui-btn aui-btn-outlined wh_search_friends" @click='search_friends()'>
-                <span class="aui-iconfont aui-icon-search"></span>
-            </a>
-        </header>
+        
         <header class="aui-bar aui-bar-nav" v-if='tab_status==5'>
             <a class="aui-pull-left aui-btn" @click='back()'>
                 <span class="aui-iconfont aui-icon-left"></span>返回
@@ -55,10 +47,11 @@
                         path: '/community'
                     }
                 ],
-                tab_status: 0
+                tab_status: 0,
             };
         },
         mounted() {
+
         },
         methods: {
             change_tab(index) {
@@ -75,7 +68,8 @@
             // 跳转到 搜索好友页面
             search_friends() {
                 this.$router.push('/search_friends');
-            }
+            },
+            
         },
         watch: {
             $route: function(to, from) {
@@ -112,6 +106,11 @@
         width: 100%;
         height: 2.2rem;
         z-index: 10;
+    }
+
+    .wh-mes {
+        height: 100%;
+        background: #fff;
     }
 </style>
 

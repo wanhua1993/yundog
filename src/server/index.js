@@ -15,7 +15,9 @@ const service = {
     // 搜索添加好友
     search_friends: data => Axios.get('/search_friends?val=' + data),
     // 加他好友
-    add_friend: data => Axios.get('/add_friend?fri_id=' + data.fri_id + '&my_id=' + data.my_id)
+    add_friend: data => Axios.get('/add_friend?fri_id=' + data.fri_id + '&my_id=' + data.my_id),
+    // 加载好友请求
+    load_friends_req: data => Axios.get('/load_friends_req?fri_id=' + data)
 
 }
 export default service

@@ -74,9 +74,19 @@ const User_all = {
         var val = req.query;
         var friends = new Friends({
             my_id: val.my_id,
-            fri_id: val.fri_id
+            fri_id: val.fri_id,
         });
         friends.save(function (err, res) {
+            callback(err, res);
+        });
+    },
+    // 加载好友请求列表
+    load_friends_req(req, res, callback) {
+        var fri_id = req.query.fri_id;
+        var wherestr = {
+            "fri_id": fri_id
+        };
+        Friends.find(wherestr).populate('my_id').exec(function (err, res) {
             callback(err, res);
         });
     }

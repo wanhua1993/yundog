@@ -41,11 +41,15 @@ var FriendsSchema = new Schema({
     },
     my_id: {
         type: ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     fri_id: {
         type: ObjectId,
-        ref: 'user'
+        ref: 'User'
+    },
+    status: {
+        type: Number,
+        default: 0
     }
 });
 var Friends = mongoose.model("Friend", FriendsSchema);
