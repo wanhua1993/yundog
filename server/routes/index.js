@@ -74,4 +74,13 @@ router.get('/load_friends_req', function (req, res) {
     }
   });
 });
+// 同意成为好友
+router.get('/agree_friends', function (req, res){
+  User_all.agree_friends(req, res, function (ret1, ret2){
+    res.send({
+      value_0: ret1,
+      value_1: ret2
+    });
+  });
+});
 module.exports = router;

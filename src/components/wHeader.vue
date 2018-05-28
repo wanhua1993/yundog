@@ -65,11 +65,6 @@
             back() {
                 this.$router.push('/friends');
             },
-            // 跳转到 搜索好友页面
-            search_friends() {
-                this.$router.push('/search_friends');
-            },
-            
         },
         watch: {
             $route: function(to, from) {

@@ -84,11 +84,40 @@ const User_all = {
     load_friends_req(req, res, callback) {
         var fri_id = req.query.fri_id;
         var wherestr = {
-            "fri_id": fri_id
+            "fri_id": fri_id,
+            "active": 0
         };
         Friends.find(wherestr).populate('my_id').exec(function (err, res) {
             callback(err, res);
         });
+    },
+    // 同意成为好友
+    async agree_friends(req, res, callback) {
+        var val = req.query;
+        var friends = new Friends({
+            my_id: val.fri_id,
+            fri_id: val.my_id,
+            status: 1,
+            active: 1
+        });
+        var id = val.id;
+        var updatestr = {
+            'status': 1,
+        };
+
+        var data1 = await new Promise((resolve) => {
+            friends.save(function (err, res) {
+                resolve(res);
+            });
+        });
+
+        // 假装请求数据2且此请求依赖数据1
+        var data2 = await new Promise((resolve) => {
+            Friends.findByIdAndUpdate(id, updatestr, function (err, res) {
+                resolve(res);
+            });
+        });
+        callback(data1, data2);
     }
 }
 module.exports = User_all;

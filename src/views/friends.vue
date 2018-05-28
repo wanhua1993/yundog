@@ -2,11 +2,11 @@
     <div>
         <header class="aui-bar aui-bar-nav" v-show='header_0'>
             <a class="aui-pull-left aui-btn aui-btn-outlined" @click='wh_fri_list'>
-                <div class="aui-badge">{{req_fri_num}}</div>
+                <div class="aui-badge" v-if='req_fri_num != 0'>{{req_fri_num}}</div>
                 <span class="aui-iconfont aui-icon-menu"></span>
             </a>
             <div class="aui-title">最近联系人</div>
-            <a class="aui-pull-right aui-btn aui-btn-outlined wh_search_friends">
+            <a class="aui-pull-right aui-btn aui-btn-outlined wh_search_friends" @click='search_friends()'>
                 <span class="aui-iconfont aui-icon-search"></span>
             </a>
         </header>
@@ -28,10 +28,10 @@
         <section class="wh_section_1" v-show='wh_section_1'>
             <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" v-for='(item, index) in req_fri' :key='index'>
                 <div class="aui-info-item">
-                    <img :src="baseURL + item.my_id.avatar" style="width:1.5rem" class="aui-img-round" />
+                    <img :src="avatar" style="width:1.5rem" class="aui-img-round" />
                     <span class="aui-margin-l-5">{{item.my_id.username}} 请求添加好友</span>
                 </div>
-                <div class="aui-info-item aui-btn aui-btn-success" v-if='item.status==0' @click='agree()'>同意</div>
+                <div class="aui-info-item aui-btn aui-btn-success" v-if='item.status==0' @click='agree(item.my_id._id, item._id)'>同意</div>
                 <div class="aui-info-item" v-else>已同意</div>
             </div>
         </section>
@@ -103,7 +103,8 @@
                 wh_section: true,
                 wh_section_1: false,
                 header_0: true,
-                header_1: false
+                header_1: false,
+                avatar: require('@/assets/timg.jpg')
             };
         },
         mounted() {
@@ -120,9 +121,18 @@
             load_friends_req() {
                 var that = this;
                 url.load_friends_req(this.user._id).then(data => {
-                    console.log(data);
-                    that.req_fri_num = data.data.value.length;
+                    // that.req_fri_num = data.data.value.length;
                     that.req_fri = data.data.value;
+                    for(var i = 0; i < that.req_fri.length; i++) {
+                        if(that.req_fri[i].avatar) {
+                            that.req_fri[i].avatar = baseURL + that.req_fri[i].avatar;
+                        } else {
+                            that.req_fri[i].avatar = this.avatar;
+                        }
+                        if(that.req_fri[i].status == 0) {
+                            that.req_fri_num++
+                        }
+                    }
                 });
             },
             // 加载好友请求列表
@@ -138,10 +148,24 @@
                 this.header_0 = true;
                 this.header_1 = false;
             },
-            // 同意添加好友
-            agree() {
-                console.log(1111);
-            }
+            // 同意添加好友 
+            // 点击同意以后 需要再建立一个 好友对应关系 并且使两条数据中的status 都为1
+            agree(my_id, id) {
+                var val = {
+                    fri_id: this.user._id,
+                    my_id: my_id,
+                    id: id
+                }
+                url.agree_friends(val).then(data => {
+                    if(data.status == 200) {
+
+                    }
+                });
+            },
+             // 跳转到 搜索好友页面
+            search_friends() {
+                this.$router.push('/search_friends');
+            },
         }
     };
 </script>

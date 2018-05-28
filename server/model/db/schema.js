@@ -50,6 +50,10 @@ var FriendsSchema = new Schema({
     status: {
         type: Number,
         default: 0
+    },
+    active: {
+        type: Number,
+        default: 0
     }
 });
 var Friends = mongoose.model("Friend", FriendsSchema);
