@@ -118,6 +118,17 @@ const User_all = {
             });
         });
         callback(data1, data2);
+    },
+    // 加载好友列表
+    load_friends(req, res, callback) {
+        var user = req.session.user;
+        var wherestr = {
+            "my_id": user._id,
+            status: 1
+        };
+        User.find(wherestr, function (err, res) {
+            callback(err, res);
+        });
     }
 }
 module.exports = User_all;

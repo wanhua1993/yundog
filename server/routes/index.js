@@ -5,13 +5,13 @@ var User_all = require('../model/user/user');
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
-
 // 用户登录
 router.post('/login_in', function (req, res) {
   User_all.find_by_username(req, res, function (err, ret) {
     if (err) {
       console.log(err);
     } else {
+      req.session.user = ret[0];
       res.send({
         value: ret
       });
@@ -51,9 +51,9 @@ router.get('/search_friends', function (req, res) {
   });
 });
 // 加他好友
-router.get('/add_friend', function (req, res){
+router.get('/add_friend', function (req, res) {
   User_all.add_friend(req, res, function (err, ret) {
-    if(err) {
+    if (err) {
       console.log(err);
     } else {
       res.send({
@@ -64,8 +64,8 @@ router.get('/add_friend', function (req, res){
 });
 // 加载好友请求列表
 router.get('/load_friends_req', function (req, res) {
-  User_all.load_friends_req(req, res, function (err, ret){
-    if(err) {
+  User_all.load_friends_req(req, res, function (err, ret) {
+    if (err) {
       console.log(err);
     } else {
       res.send({
@@ -75,12 +75,25 @@ router.get('/load_friends_req', function (req, res) {
   });
 });
 // 同意成为好友
-router.get('/agree_friends', function (req, res){
-  User_all.agree_friends(req, res, function (ret1, ret2){
+router.get('/agree_friends', function (req, res) {
+  User_all.agree_friends(req, res, function (ret1, ret2) {
     res.send({
       value_0: ret1,
       value_1: ret2
     });
+  });
+});
+// 加载好友列表
+router.get('/load_friends', function (req, res) {
+  console.log(JSON.stringify(req.sessionStore.sessions).user);
+  User_all.load_friends(req, res, function (err, ret) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({
+        value: ret
+      });
+    }
   });
 });
 module.exports = router;

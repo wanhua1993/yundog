@@ -5,7 +5,7 @@
                 <div class="aui-badge" v-if='req_fri_num != 0'>{{req_fri_num}}</div>
                 <span class="aui-iconfont aui-icon-menu"></span>
             </a>
-            <div class="aui-title">最近联系人</div>
+            <div class="aui-title">好友列表</div>
             <a class="aui-pull-right aui-btn aui-btn-outlined wh_search_friends" @click='search_friends()'>
                 <span class="aui-iconfont aui-icon-search"></span>
             </a>
@@ -111,6 +111,7 @@
             this.baseURL = baseURL;
             this.user = mUtils.getStore('user');
             this.load_friends_req();
+            this.load_friends();
         },
         methods: {
             // 跳轉到聊天页面
@@ -166,6 +167,12 @@
             search_friends() {
                 this.$router.push('/search_friends');
             },
+            // 加载好友列表
+            load_friends() {
+                url.load_friends().then(data => {
+                    console.log(data);
+                })
+            }
         }
     };
 </script>

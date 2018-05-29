@@ -4,7 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var session_1 = require('client-sessions');
+var MongoStore = require('connect-mongo')(session);
 var Url = require('./config/datebase').Url;
+var dbUrl = require('./config/datebase').dbUrl;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -13,7 +17,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -43,8 +46,24 @@ app.all('*', function (req, res, next) {
   }
 });
 
+app.use(session({
+  secret: 'sessiontest',//与cookieParser中的一致
+  resave: true,
+  saveUninitialized: false,
+  // cookie: { maxAge: 60 * 1000 * 30 }, // 过期时间（毫秒）
+  // store: new MongoStore({
+  //   url: dbUrl
+  // })
+}));
+// app.use(session_1({
+//   cookieName: 'session',
+//   secret: 'random_string_goes_here',
+//   duration: 30 * 60 * 1000,
+//   activeDuration: 5 * 60 * 1000,
+// }));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
