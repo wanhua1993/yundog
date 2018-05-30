@@ -57,7 +57,20 @@ var FriendsSchema = new Schema({
     }
 });
 var Friends = mongoose.model("Friend", FriendsSchema);
+// 签到数据表
+var ReportSchema = new Schema({
+    createT: {
+        type: String,
+        default: new Date()
+    },
+    user_id: {
+        type: ObjectId,
+        ref: 'User'
+    }
+});
+var Reports = mongoose.model("Report", ReportSchema);
 module.exports = {
     User: User,
-    Friends: Friends
+    Friends: Friends,
+    Reports: Reports
 }

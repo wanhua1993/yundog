@@ -23,7 +23,9 @@ const service = {
     // 加载好友列表
     load_friends: data => Axios.get('/load_friends'),
     // 检查好友是否存在过
-    check_friends: data => Axios.post('/check_friends', data)
+    check_friends: data => Axios.post('/check_friends', data),
+    // 点击签到
+    report_in: data => Axios.get('/report_in')
 
 }
 export default service

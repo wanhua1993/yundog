@@ -108,4 +108,16 @@ router.post('/check_friends', function (req, res, next) {
     }
   });
 });
+// 点击签到
+router.get('/report_in', function (req, res, next) {
+  User_all.report_in(req, res, function(err, ret) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.send({
+        value: ret
+      });
+    }
+  });
+});
 module.exports = router;

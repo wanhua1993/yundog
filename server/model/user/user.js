@@ -1,5 +1,6 @@
 var User = require('../db/schema').User;
 var Friends = require('../db/schema').Friends;
+var Reports = require('../db/schema').Reports;
 var upload_file = require('../formdata/upload_file');
 var cheerio_f = require('../cheerio/cheerio');
 
@@ -141,6 +142,16 @@ const User_all = {
         Friends.find(wherestr, function(err, res) {
             callback(err, res);
         })
+    },
+    // 点击签到
+    report_in(req, res, callback) {
+        var user_id = req.session.user._id;
+        var report = new Reports({
+            user_id: user_id
+        });
+        report.save(function (err, res) {
+            callback(err, res);
+        });
     }
 }
 module.exports = User_all;

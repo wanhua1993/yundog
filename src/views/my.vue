@@ -16,11 +16,6 @@
                         <div class="aui-list-item-text">
                             {{user.note}}
                         </div>
-                        <div class="wh_qiandao">
-                             签到
-                            <i class="aui-iconfont aui-icon-flag"></i>
-                        </div>
-                        
                     </div>
                 </div>
                 <div class="aui-info" style="padding-top:0">
@@ -29,6 +24,15 @@
                         <span class="aui-margin-l-5">{{user.name}}</span>
                     </div>
                     <div class="aui-info-item">{{user.time}}</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-bar aui-bar-tab wh_aui_li">
+                <div class="aui-bar-tab-item" tapmode 
+                v-for='(item, index) in dog_list' 
+                :key='index'
+                @click='dog_click(index)'>
+                    <i class="aui-iconfont " :class='item.icon'></i>
+                    <div class="aui-bar-tab-label">{{item.val}}</div>
                 </div>
             </li>
         </ul>
@@ -68,61 +72,114 @@
         </ul>
         <div class="aui-btn aui-btn-danger aui-btn-block wh_confirm" @click='login_out'>退出登录</div>
     </div>
-</template>
+</template>  
 <script>
-    import mUtils from "@/utils/utils";
-    import baseURL from "@/server/url";
-    export default {
-        data() {
-            return {
-                user: {
-                    name: "流浪者",
-                    avatar: require("@/assets/timg.jpg"),
-                    note: "一个爱吃番茄的西红柿一枚！",
-                    time: "2018-05-21 10:31"
-                }
-            };
+import "@/assets/js/aui-dialog.js";
+import mUtils from "@/utils/utils";
+import baseURL from "@/server/url";
+import url from '@/server/index.js'
+export default {
+  data() {
+    return {
+      user: {
+        name: "流浪者",
+        avatar: require("@/assets/timg.jpg"),
+        note: "一个爱吃番茄的西红柿一枚！",
+        time: "2018-05-21 10:31"
+      },
+      dog_list: [
+        {
+          icon: "aui-icon-pencil",
+          val: "已签3天",
+          path: ""
         },
-        mounted() {
-            this.user.name = mUtils.getStore("user").username;
-            var avatar = mUtils.getStore("user").avatar;
-            if (avatar) {
-                this.user.avatar = baseURL + "" + avatar;
-            }
+        {
+          icon: "aui-icon-star",
+          val: "免费领养",
+          path: ""
         },
-        methods: {
-            // 退出登录
-            login_out() {
-                mUtils.setStore("user", "");
-                this.$router.push("/");
-            },
-            // 跳转到我的信息页面
-            my_detail() {
-                console.log(11111);
-                this.$router.push("/my_detail");
-            }
+        {
+          icon: "aui-icon-calendar",
+          val: "查看任务",
+          path: ""
+        },
+        {
+          icon: "aui-icon-my",
+          val: "狗狗家园",
+          path: ""
         }
+      ]
     };
+  },
+
+  mounted() {
+    this.user.name = mUtils.getStore("user").username;
+    var avatar = mUtils.getStore("user").avatar;
+    if (avatar) {
+      this.user.avatar = baseURL + "" + avatar;
+    }
+  },
+
+  methods: {
+    // 退出登录
+    login_out() {
+      mUtils.setStore("user", "");
+      this.$router.push("/");
+    },
+    // 跳转到我的信息页面
+    my_detail() {
+      this.$router.push("/my_detail");
+    },
+    // 点击狗狗一列
+    dog_click(index) {
+      if (index == 0) {
+        var dialog = new auiDialog({});
+        dialog.alert(
+          {
+            title: "",
+            msg: "您已签到成功！",
+            buttons: ["确定"]
+          },
+          function(ret) {
+            url.report_in().then(data => {
+                console.log(data);
+            });
+          }
+        );
+      }
+    }
+  }
+};
 </script>
 <style scoped>
-    .aui-content {
-        margin-top: 2.2rem;
-    }
-    .wh_confirm {
-        margin-top: 2rem;
-    }
-    .aui-list-item {
-        margin-top: 0.2rem;
-        background: #fff;
-    }
-    .aui-list {
-        background: rgb(238, 237, 237);
-    }
-    .aui-list-in {
-        margin-top: 1rem;
-    }
-    .wh_qiandao {
-        text-align: left;
-        color: #212121
-    }
+.aui-content {
+  margin-top: 2.2rem;
+}
+
+.wh_confirm {
+  margin-top: 2rem;
+}
+
+.aui-list-item {
+  margin-top: 0.2rem;
+
+  background: #fff;
+}
+
+.aui-list {
+  background: rgb(238, 237, 237);
+}
+
+.aui-list-in {
+  margin-top: 1rem;
+}
+
+.wh_qiandao {
+  text-align: left;
+
+  color: #212121;
+}
+.wh_aui_li {
+  margin-top: 0.6rem;
+}
 </style>
