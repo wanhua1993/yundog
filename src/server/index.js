@@ -21,7 +21,9 @@ const service = {
     // 同意成为好友
     agree_friends: data => Axios.get('/agree_friends?fri_id=' + data.fri_id + '&my_id=' + data.my_id + '&id=' + data.id),
     // 加载好友列表
-    load_friends: data => Axios.get('/load_friends')
+    load_friends: data => Axios.get('/load_friends'),
+    // 检查好友是否存在过
+    check_friends: data => Axios.post('/check_friends', data)
 
 }
 export default service

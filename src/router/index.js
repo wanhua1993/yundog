@@ -17,6 +17,7 @@ import Friends_detail from '@/views/friends_detail'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',

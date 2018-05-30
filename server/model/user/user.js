@@ -122,13 +122,25 @@ const User_all = {
     // 加载好友列表
     load_friends(req, res, callback) {
         var user = req.session.user;
+        console.log(user);
         var wherestr = {
             "my_id": user._id,
-            status: 1
+            "status": 1
         };
-        User.find(wherestr, function (err, res) {
+        Friends.find(wherestr).populate('fri_id').exec(function (err, res) {
             callback(err, res);
         });
+    },
+    // 检查好友是否已经添加过
+    check_friends(req, res, callback) {
+        var fri_id = req.body.id;
+        var wherestr = {
+            "fri_id": fri_id,
+            "status": 1
+        }
+        Friends.find(wherestr, function(err, res) {
+            callback(err, res);
+        })
     }
 }
 module.exports = User_all;

@@ -7,7 +7,7 @@
                     <input type="search" placeholder="用户名/ID号" id="search-input" v-model='user_val'>
                 </form>
             </div>
-            <div class="aui-searchbar-cancel" tapmod>取消</div>
+            <div class="aui-searchbar-cancel" tapmod @click='cancel()'>取消</div>
         </div>
         <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" 
         v-for='(item, index) in data_list' 
@@ -34,7 +34,8 @@
         mounted() {},
         methods: {
             search_data(val) {
-                var that = this;
+                if(val) {
+                    var that = this;
                 url.search_friends(val).then(function(data) {
                     that.data_list = data.data.value;
                     for (var i = 0; i < that.data_list.length; i++) {
@@ -46,6 +47,7 @@
                         }
                     }
                 });
+                }
             },
             // 點擊跳轉到好友 詳情頁面
             friends_detail(user) {
@@ -53,6 +55,10 @@
                     path: '/friends_detail',
                     query: user
                 });
+            },
+            // 点击取消
+            cancel() {
+                this.user_val = '';
             }
         },
         watch: {

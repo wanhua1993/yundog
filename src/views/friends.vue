@@ -19,10 +19,10 @@
         <section class="wh_section" v-show='wh_section'>
             <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" v-for='(item, index) in data_list' @click='chat_room()' :key='index'>
                 <div class="aui-info-item">
-                    <img :src="item.img" style="width:1.5rem" class="aui-img-round" />
-                    <span class="aui-margin-l-5">{{item.val}}</span>
+                    <img :src="item.fri_id.avatar" style="width:1.5rem;height: 1.5rem;" class="aui-img-round" />
+                    <span class="aui-margin-l-5">{{item.fri_id.username}}</span>
                 </div>
-                <div class="aui-info-item">{{item.time}}</div>
+                <div class="aui-info-item">111</div>
             </div>
         </section>
         <section class="wh_section_1" v-show='wh_section_1'>
@@ -44,57 +44,7 @@
     export default {
         data() {
             return {
-                data_list: [{
-                        img: require("@/assets/demo2.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo3.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo4.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo5.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo1.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo2.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo3.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo4.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo5.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    },
-                    {
-                        img: require("@/assets/demo1.png"),
-                        val: "你好AUI！",
-                        time: "2015-07-13 22:31"
-                    }
-                ],
+                data_list: [],
                 user: {},
                 req_fri_num: 0,
                 req_fri: [],
@@ -124,13 +74,13 @@
                 url.load_friends_req(this.user._id).then(data => {
                     // that.req_fri_num = data.data.value.length;
                     that.req_fri = data.data.value;
-                    for(var i = 0; i < that.req_fri.length; i++) {
-                        if(that.req_fri[i].avatar) {
+                    for (var i = 0; i < that.req_fri.length; i++) {
+                        if (that.req_fri[i].avatar) {
                             that.req_fri[i].avatar = baseURL + that.req_fri[i].avatar;
                         } else {
                             that.req_fri[i].avatar = this.avatar;
                         }
-                        if(that.req_fri[i].status == 0) {
+                        if (that.req_fri[i].status == 0) {
                             that.req_fri_num++
                         }
                     }
@@ -158,19 +108,28 @@
                     id: id
                 }
                 url.agree_friends(val).then(data => {
-                    if(data.status == 200) {
-
+                    if (data.status == 200) {
                     }
                 });
             },
-             // 跳转到 搜索好友页面
+            // 跳转到 搜索好友页面
             search_friends() {
                 this.$router.push('/search_friends');
             },
             // 加载好友列表
             load_friends() {
                 url.load_friends().then(data => {
-                    console.log(data);
+                    if (data.status == 200) {
+                        this.data_list = data.data.value;
+                        for (var i = 0; i < this.data_list.length; i++) {
+                            var avatar = this.data_list[i].fri_id.avatar;
+                            if (avatar) {
+                                this.data_list[i].fri_id.avatar = baseURL + avatar;
+                            } else {
+                                this.data_list[i].fri_id.avatar = require('@/assets/timg.jpg');
+                            }
+                        }
+                    }
                 })
             }
         }

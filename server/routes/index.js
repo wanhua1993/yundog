@@ -85,9 +85,21 @@ router.get('/agree_friends', function (req, res) {
 });
 // 加载好友列表
 router.get('/load_friends', function (req, res) {
-  console.log(JSON.stringify(req.sessionStore.sessions).user);
   User_all.load_friends(req, res, function (err, ret) {
     if (err) {
+      console.log(err);
+    } else {
+      
+      res.send({
+        value: ret
+      });
+    }
+  });
+});
+// 检查好友是否已经添加过
+router.post('/check_friends', function (req, res, next) {
+  User_all.check_friends(req, res, function (err, ret){
+    if(err) {
       console.log(err);
     } else {
       res.send({

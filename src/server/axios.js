@@ -7,6 +7,7 @@ import baseURL from './url'
 
 const instance = axios.create()
 instance.defaults.timeout = 30000 // 所有接口30s超时
+instance.defaults.withCredentials = true
 
 // 请求拦截器
 instance.interceptors.request.use(function (config) {
