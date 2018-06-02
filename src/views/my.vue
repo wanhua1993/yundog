@@ -77,7 +77,7 @@
 import "@/assets/js/aui-dialog.js";
 import mUtils from "@/utils/utils";
 import baseURL from "@/server/url";
-import url from '@/server/index.js'
+import url from "@/server/index.js";
 export default {
   data() {
     return {
@@ -134,18 +134,22 @@ export default {
     dog_click(index) {
       if (index == 0) {
         var dialog = new auiDialog({});
-        dialog.alert(
-          {
-            title: "",
-            msg: "您已签到成功！",
-            buttons: ["确定"]
-          },
-          function(ret) {
-            url.report_in().then(data => {
-                console.log(data);
+        url.report_in().then(data => {
+            this.dog_list[0].val = '已签' + data.data.days + '天';
+          if (data.data.status == "2001") {
+            dialog.alert({
+              title: "",
+              msg: "您已签到过了！",
+              buttons: ["确定"]
+            });
+          } else {
+            dialog.alert({
+              title: "",
+              msg: "您已签到成功！",
+              buttons: ["确定"]
             });
           }
-        );
+        });
       }
     }
   }

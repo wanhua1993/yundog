@@ -66,6 +66,13 @@ var ReportSchema = new Schema({
     user_id: {
         type: ObjectId,
         ref: 'User'
+    },
+    report_time: {
+        type: String
+    },
+    uid: {
+        type: Number,
+        default: 0
     }
 });
 var Reports = mongoose.model("Report", ReportSchema);

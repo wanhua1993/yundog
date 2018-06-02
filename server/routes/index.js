@@ -110,13 +110,24 @@ router.post('/check_friends', function (req, res, next) {
 });
 // 点击签到
 router.get('/report_in', function (req, res, next) {
-  User_all.report_in(req, res, function(err, ret) {
+  User_all.report_in(req, res, function(err, ret, days) {
     if(err) {
       console.log(err);
     } else {
-      res.send({
-        value: ret
-      });
+      if(ret == '2001') {
+        var val = {
+          status: 2001,
+          ret: '今天已经签到过了！',
+          days: days
+        }
+      } else {
+        var val = {
+          status: 200,
+          value: ret,
+          days: days
+        }
+      }
+      res.send(val);
     }
   });
 });

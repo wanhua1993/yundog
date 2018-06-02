@@ -3,7 +3,7 @@ var Friends = require('../db/schema').Friends;
 var Reports = require('../db/schema').Reports;
 var upload_file = require('../formdata/upload_file');
 var cheerio_f = require('../cheerio/cheerio');
-
+var moment = require('moment');
 const User_all = {
     // 注册用户
     save(req, res, callback) {
@@ -123,7 +123,6 @@ const User_all = {
     // 加载好友列表
     load_friends(req, res, callback) {
         var user = req.session.user;
-        console.log(user);
         var wherestr = {
             "my_id": user._id,
             "status": 1
@@ -139,19 +138,72 @@ const User_all = {
             "fri_id": fri_id,
             "status": 1
         }
-        Friends.find(wherestr, function(err, res) {
+        Friends.find(wherestr, function (err, res) {
             callback(err, res);
         })
     },
     // 点击签到
-    report_in(req, res, callback) {
+    async report_in(req, res, callback) {
         var user_id = req.session.user._id;
-        var report = new Reports({
-            user_id: user_id
+        // 先判断是否已经签到过
+        var now_time = moment().format('L');
+        var day = Number(now_time.split('-')[2]);
+        var sort = {
+            'createT': -1
+        };
+        var data_0 = await new Promise((resolve) => {
+            Reports.find({
+                'user_id': user_id,
+            }).sort(sort).exec(function (err, data) {
+                resolve(data);
+            });
         });
-        report.save(function (err, res) {
-            callback(err, res);
-        });
+        console.log(data_0);
+        if (data_0.length) {
+            var day_0 = Number(data_0[0].report_time.split('/')[0]);
+            if (now_time == data_0[0].report_time) {
+                // 表示已经签到过了
+                console.log('今天已经签到过了!');
+                callback(null, '2001', data_0.length);
+            } else {
+                // 表示没有签到 没有签到的时候 要判断是否是连续签到 如果是连续签到 那么++ 否则的话 为 0
+                // if (day_0 + 1 == day) {
+                //     console.log('连续签到！');
+                //     var uid = data_0.uid + 1;
+                //     // 表示是连续签到 那么 uid++
+                // } else {
+                //     console.log('没有连续签到！');
+                //     // 表示不是连续签到 那么 uid == 0
+                //     var uid = 0;
+                // }
+                var report = new Reports({
+                    user_id: user_id,
+                    report_time: moment().format('L'),
+                    uid: 0
+                });
+                report.save(function (err, res) {
+                    callback(err, res, data_0.length);
+                });
+            }
+        } else {
+            var report = new Reports({
+                user_id: user_id,
+                report_time: moment().format('L'),
+                uid: 0
+            });
+            report.save(function (err, res) {
+                callback(err, res, 1);
+            });
+        }
+
     }
+
+    /*    签到时，判断uid上一次签到的日期是否和当前日期的昨天一致， 
+          1、如果uid上一次签到为空，则连续签到由0更新为1 
+          2、如果相同，则连续签到++1 
+          3、如果不同，则连续签到更新为1 
+          4、为了兼容之前数据，在判断时重新组合年月日。 随后的插入操作都有last_signdate日期，可以用它直接判断 
+    */
+
 }
 module.exports = User_all;
