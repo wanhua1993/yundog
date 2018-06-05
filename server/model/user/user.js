@@ -196,7 +196,7 @@ const User_all = {
             });
         }
 
-    }
+    },
 
     /*    签到时，判断uid上一次签到的日期是否和当前日期的昨天一致， 
           1、如果uid上一次签到为空，则连续签到由0更新为1 
@@ -204,6 +204,15 @@ const User_all = {
           3、如果不同，则连续签到更新为1 
           4、为了兼容之前数据，在判断时重新组合年月日。 随后的插入操作都有last_signdate日期，可以用它直接判断 
     */
-
+    // 获取签到天数
+    get_days(req, res, callback) {
+        var user = req.session.user;
+        var wherestr = {
+            "user_id": user._id,
+        };
+        Reports.count(wherestr, function (err, res) {
+            callback(err, res);
+        });
+    }
 }
 module.exports = User_all;

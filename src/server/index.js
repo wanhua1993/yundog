@@ -25,7 +25,9 @@ const service = {
     // 检查好友是否存在过
     check_friends: data => Axios.post('/check_friends', data),
     // 点击签到
-    report_in: data => Axios.get('/report_in')
+    report_in: data => Axios.get('/report_in'),
+    // 获取签到天数
+    get_days: data => Axios.get('/get_days')
 
 }
 export default service

@@ -118,6 +118,8 @@ export default {
     if (avatar) {
       this.user.avatar = baseURL + "" + avatar;
     }
+    // 获取签到天数
+    this.get_days();
   },
 
   methods: {
@@ -151,6 +153,12 @@ export default {
           }
         });
       }
+    },
+    // 获取天数
+    get_days() {
+        url.get_days().then(data => {
+            this.dog_list[0].val = '已签' + data.data.value + '天';
+        })
     }
   }
 };

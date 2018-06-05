@@ -89,7 +89,7 @@ router.get('/load_friends', function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      
+
       res.send({
         value: ret
       });
@@ -98,8 +98,8 @@ router.get('/load_friends', function (req, res) {
 });
 // 检查好友是否已经添加过
 router.post('/check_friends', function (req, res, next) {
-  User_all.check_friends(req, res, function (err, ret){
-    if(err) {
+  User_all.check_friends(req, res, function (err, ret) {
+    if (err) {
       console.log(err);
     } else {
       res.send({
@@ -110,11 +110,11 @@ router.post('/check_friends', function (req, res, next) {
 });
 // 点击签到
 router.get('/report_in', function (req, res, next) {
-  User_all.report_in(req, res, function(err, ret, days) {
-    if(err) {
+  User_all.report_in(req, res, function (err, ret, days) {
+    if (err) {
       console.log(err);
     } else {
-      if(ret == '2001') {
+      if (ret == '2001') {
         var val = {
           status: 2001,
           ret: '今天已经签到过了！',
@@ -131,4 +131,16 @@ router.get('/report_in', function (req, res, next) {
     }
   });
 });
+// 获取签到天数
+router.get('/get_days', function (req, res) {
+  User_all.get_days(req, res, function (err, ret) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send({
+        value: ret
+      });
+    }
+  })
+})
 module.exports = router;

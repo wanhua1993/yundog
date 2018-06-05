@@ -11,7 +11,7 @@
                     <div class="aui-chat-arrow"></div>
                     {{item.val}}
                 </div>
-                 <div class="aui-chat-content" v-if='item.type==2'>
+                <div class="aui-chat-content" v-if='item.type==2'>
                     <div class="aui-chat-arrow"></div>
                     <img :src="item.val" alt="">
                 </div>
@@ -20,14 +20,23 @@
                 </div>
             </div>
         </div>
+        <footer class="aui-bar aui-bar-tab" id="footer">
+            <div class="aui-searchbar-input aui-border-radius wh_input_box" tapmode>
+                <i class="iconfont icon-soundlight icon_1"></i>
+                <form action="javascript:search();">
+                    <input type="search" placeholder="" id="search-input">
+                </form>
+                <i class="iconfont icon-emojilight icon_2"></i>
+                <i class="iconfont icon-roundaddlight icon_3"></i>
+            </div>
+        </footer>
     </section>
 </template>
 <script>
     export default {
         data() {
             return {
-                data_list: [
-                    {
+                data_list: [{
                         avatar: require('@/assets/demo2.png'), // 头像
                         name: '流浪者', // 名字
                         location: 'aui-chat-left',
@@ -73,16 +82,42 @@
             }
         },
         mounted() {
-
         },
         methods: {
-
         }
     }
 </script>
 <style scoped>
-.aui-chat {
-    margin-top: 2.2rem;
-}
+    .aui-chat {
+        margin-top: 2.2rem;
+    }
+    .wh_input_box {
+        position: relative;
+        margin: 0;
+        height: 2.2rem;
+        line-height: 2.2rem;
+    }
+    form {
+        width: 100%;
+        height: 2.2rem;
+    }
+    form input {
+        height: 2.2rem;
+        margin-left: .4rem;
+        margin-left: 2rem;
+    }
+    .iconfont {
+        position: absolute;
+        font-size: 1.5rem;
+    }
+    .icon_1 {
+        left: .5rem;
+    }
+    .icon_2 {
+        right: 2.5rem;
+    }
+    .icon_3 {
+        right: .5rem;
+    }
 </style>
 
