@@ -32,6 +32,7 @@ router.post('/upload_file', function (req, res) {
 });
 // 通过爬虫 来爬取 狗狗的数据
 router.get('/cheerio_data', function (req, res) {
+  console.log(3333);
   User_all.cheerio_data(req, res, function (ret) {
     res.send({
       value: ret

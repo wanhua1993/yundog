@@ -54,6 +54,7 @@ const User_all = {
             url = 'http://www.goupu.com.cn/photo/list-34-' + count + '.html';
         }
         cheerio_f(url, function (data) {
+            console.log(data);
             callback(data);
         });
     },

@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
@@ -61,6 +62,12 @@ app.use(session({
 //   duration: 30 * 60 * 1000,
 //   activeDuration: 5 * 60 * 1000,
 // }));
+
+// app.get('*', function (req, res) {
+//   console.log(111);
+//   const html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf-8')
+//   res.send(html)
+// })
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 
