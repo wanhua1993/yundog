@@ -27,7 +27,9 @@ const service = {
     // 点击签到
     report_in: data => Axios.get('/report_in'),
     // 获取签到天数
-    get_days: data => Axios.get('/get_days')
+    get_days: data => Axios.get('/get_days'),
+    // 获取融云 token 值
+    get_token: data => Axios.get('/get_token?userId=' + data.userId)
 
 }
 export default service

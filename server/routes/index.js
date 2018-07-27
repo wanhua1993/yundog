@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User_all = require('../model/user/user');
+const getToken = require('../rongcloud/rongcloud');
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -32,7 +33,6 @@ router.post('/upload_file', function (req, res) {
 });
 // 通过爬虫 来爬取 狗狗的数据
 router.get('/cheerio_data', function (req, res) {
-  console.log(3333);
   User_all.cheerio_data(req, res, function (ret) {
     res.send({
       value: ret
@@ -143,5 +143,16 @@ router.get('/get_days', function (req, res) {
       });
     }
   })
+});
+
+// 通过融云获取 token 值
+router.get('/get_token', function (req, res, next) {
+  let id = req.query.userId;
+  getToken(id, function (token){
+    res.send({
+        code: '200',
+        token: token
+    });
 })
+});
 module.exports = router;

@@ -17,7 +17,7 @@
             <div class="aui-title">好友添加</div>
         </header>
         <section class="wh_section" v-show='wh_section'>
-            <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" v-for='(item, index) in data_list' @click='chat_room()' :key='index'>
+            <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 wh-mes" v-for='(item, index) in data_list' @click='chat_room(item)' :key='index'>
                 <div class="aui-info-item">
                     <img :src="item.fri_id.avatar" style="width:1.5rem;height: 1.5rem;" class="aui-img-round" />
                     <span class="aui-margin-l-5">{{item.fri_id.username}}</span>
@@ -65,8 +65,13 @@
         },
         methods: {
             // 跳轉到聊天页面
-            chat_room() {
-                this.$router.push("/chat_room");
+            chat_room(item) {
+                this.$router.push({
+                    path: "/chat_room",
+                    query: {
+                        id: item.fri_id._id,
+                    }
+                });
             },
             // 加载好友请求
             load_friends_req() {
@@ -108,8 +113,7 @@
                     id: id
                 }
                 url.agree_friends(val).then(data => {
-                    if (data.status == 200) {
-                    }
+                    if (data.status == 200) {}
                 });
             },
             // 跳转到 搜索好友页面
